@@ -5,7 +5,7 @@ import ChatForm from "./components/ChatForm";
 import Message from "./components/Message";
 import SlideOver from "./components/SlideOver";
 import EmptyState from "./components/EmptyState";
-import { Cog6ToothIcon, CodeBracketIcon } from "@heroicons/react/20/solid";
+import { Cog6ToothIcon, CodeBracketIcon, LockClosedIcon } from "@heroicons/react/20/solid"
 import LoadingChatLine from "./components/LoadingChatLine";
 import { useCompletion } from "ai/react";
 
@@ -19,6 +19,7 @@ const VERSIONS = [
     version: "4b0970478e6123a0437561282904683f32a9ed0307205dc5db2b5609d6a2ceff",
     shortened: "7B",
   },
+
   {
     name: "Llama 2 13B",
     version: "d5da4236b006f967ceb7da037be9cfc3924b20d21fed88e1e94f19d56e2d3111",
@@ -39,12 +40,12 @@ export default function HomePage() {
   const [error, setError] = useState(null);
 
   //   Llama params
-  const [size, setSize] = useState(VERSIONS[2]); // default to 70B
+  const [size, setSize] = useState(VERSIONS[0]) // default to 70B
   const [systemPrompt, setSystemPrompt] = useState(
-    "You are a helpful assistant."
+    `You are a eager and helpful assistant that responds concisely without unwanted extra information.`
   );
-  const [temp, setTemp] = useState(0.75);
-  const [topP, setTopP] = useState(0.9);
+  const [temp, setTemp] = useState(0.65)
+  const [topP, setTopP] = useState(0.95);
   const [maxTokens, setMaxTokens] = useState(800);
 
   const { complete, completion, setInput, input } = useCompletion({
@@ -129,14 +130,11 @@ export default function HomePage() {
   return (
     <>
       <div className="bg-slate-100 border-b-2 text-center p-3">
-        Powered by Replicate.{" "}
-        <a
-          href="https://replicate.com/blog/run-llama-2-with-an-api?utm_source=project&utm_campaign=llama2ai"
-          target="_blank"
-          className="underline"
-        >
-          Run and fine-tune Llama 2 in the cloud.
-        </a>
+        <div className="flex justify-between">
+          <div className="flex items-center">
+            Holla Chat
+          </div>
+        </div>  
       </div>
       <nav className="grid grid-cols-2 pt-3 pl-6 pr-3 sm:grid-cols-3 sm:pl-0">
         <div className="hidden sm:inline-block"></div>
@@ -152,13 +150,13 @@ export default function HomePage() {
         <div className="flex justify-end">
           <a
             className="inline-flex items-center px-3 py-2 mr-3 text-sm font-semibold text-gray-700 bg-white rounded-md shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-            href="https://github.com/replicate/chat"
+            href="logout"
           >
-            <CodeBracketIcon
+            <LockClosedIcon
               className="w-5 h-5 text-gray-500 sm:mr-2 group-hover:text-gray-900"
               aria-hidden="true"
             />{" "}
-            <span className="hidden sm:inline">Clone on GitHub</span>
+            <span className="hidden sm:inline">Logout</span>
           </a>
           <button
             type="button"
